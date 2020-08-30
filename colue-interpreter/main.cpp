@@ -1,12 +1,24 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
+// vars
+std::string source_file_str;
+
+// functions
+void ReadSourceFileToStr()
+{
+	const auto* file_address = "F:/test.cb";
+	std::fstream source_file(file_address, std::ios::in);
+	std::stringstream buf;
+	buf << source_file.rdbuf();
+	source_file_str = buf.str();
+	source_file.close();
+}
 
 int main(int argc, char* argv[])
 {
-	const auto maximum = 10000;
-	const int a[] = { 0,0,1,1,2,2,3,3,4,4,5,5 };
-	for (auto a1 : a)
-	{
-		std::cout << a1 << std::endl;
-	}
+	ReadSourceFileToStr();
+	std::cout << source_file_str;
 	return 0;
 }
